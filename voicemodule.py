@@ -19,6 +19,7 @@ from elevenlabs import ElevenLabs #set_api_key, generate
 from elevenlabs.play import play
 from pathlib import Path
 import os
+from playsound import playsound
 os.environ["ELEVENLABS_API_KEY"] = "c409bdb0792a210474b78f593fcfbb90da6ce9ec45b7746c4eb34977432bee7e"
 
 
@@ -42,6 +43,11 @@ def getVoice(filename):
         text=file_content
     )
 
-    play(audio)
+    with open(f"/home/rozilla/speech.mp3", "wb") as f:
+        for chunk in audio:
+            if chunk:
+                f.write(chunk)
+    
+    os.system(f"mpv /home/rozilla/speech.mp3")
 
 #getVoice("test.txt")
